@@ -1,7 +1,6 @@
 package vociapp
 
 
-//Testkommentar
 class VociController(val vociModel: Model) : Controller {
     override fun execute(command: String): Boolean {
 
@@ -10,6 +9,7 @@ class VociController(val vociModel: Model) : Controller {
                 vociModel.testfrench()
             } else if (command.endsWith("english")){
                 vociModel.testenglish()
+                println("Test")
             }
             return true
         } else if (command.startsWith("add ") && parseCommand(command) == "f") {
