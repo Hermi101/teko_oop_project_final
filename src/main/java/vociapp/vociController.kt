@@ -9,7 +9,6 @@ class VociController(val vociModel: Model) : Controller {
                 vociModel.testfrench()
             } else if (command.endsWith("english")){
                 vociModel.testenglish()
-                println("Test")
             }
             return true
         } else if (command.startsWith("add ") && parseCommand(command) == "f") {
