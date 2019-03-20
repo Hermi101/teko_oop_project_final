@@ -28,7 +28,7 @@ class VociController(val vociModel: VociFunctions) : Controller {
 
         println("Befehl $command nicht erkannt!")
 
-        return false
+        return true
     }
 
     private fun parseCommand(command: String) : String {
