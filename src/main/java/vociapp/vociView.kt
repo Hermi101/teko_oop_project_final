@@ -3,6 +3,16 @@ package vociapp
 import java.util.*
 
 class VociView() : View {
+    override fun vociUpdated(fremdsprache: String) {
+        println("""
+                Du hast erfolgreich das Fremdwort $fremdsprache hinzugefügt.
+                Commands:
+                test [francais/english]
+                add [f/e] [deutsch] [fremdsprache]
+                remove [f/e] [fremdsprache]
+            """.trimIndent())
+        askForCommand()
+    }
 
     lateinit var controller: Controller
 

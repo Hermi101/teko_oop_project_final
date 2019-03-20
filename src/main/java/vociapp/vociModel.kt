@@ -1,21 +1,35 @@
 package vociapp
 
-class VociModel(val view: View) : Model{
+class VociModel(val view: View) : VociFunctions{
 
-    override fun addfrench(german: String, secondLanguage: String) {
+    val vociRepository = VociRepository.getRepo()
+
+    override fun testFrench() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addenglish(german: String, secondLanguage: String) {
+    override fun testEnglish() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun testfrench() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addFrench(german: String, fremdsprache: String) {
+        vociRepository.addFrench(german, fremdsprache)
+        view.vociUpdated(fremdsprache)
     }
 
-    override fun testenglish() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addEnglish(german: String, fremdsprache: String) {
+        vociRepository.addEnglish(german, fremdsprache)
+        view.vociUpdated(fremdsprache)
+    }
+
+    override fun removeFrench(french: String) {
+        vociRepository.removeFrench(french)
+        view.vociUpdated(french)
+    }
+
+    override fun removeEnglish(english: String) {
+        vociRepository.removeFrench(english)
+        view.vociUpdated(english)
     }
 
 
