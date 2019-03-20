@@ -4,8 +4,7 @@ import java.util.*
 
 interface View {
     fun showInitialMenue()
-    fun showAddMenue()
-    fun showRemoveMenue()
-    fun vociUpdated(fremdsprache:String)
+    fun showAddMenue(fremdsprache: String)
+    fun showRemoveMenue(fremdsprache: String)
 }
 

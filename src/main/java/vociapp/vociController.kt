@@ -18,6 +18,12 @@ class VociController(val vociModel: VociFunctions) : Controller {
         } else if (command.startsWith("add ") && parseCommand(command) == "e") {
             vociModel.addEnglish(getGerman(command), getSecondLanguage(command))
             return true
+        } else if (command.startsWith("remove ") && parseCommand(command) == "f") {
+            vociModel.removeFrench(getGerman(command))
+            return true
+        } else if (command.startsWith("remove ") && parseCommand(command) == "e") {
+            vociModel.removeEnglish(getGerman(command))
+            return true
         }
 
         println("Befehl $command nicht erkannt!")

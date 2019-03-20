@@ -3,17 +3,6 @@ package vociapp
 import java.util.*
 
 class VociView() : View {
-    override fun vociUpdated(fremdsprache: String) {
-        println("""
-                Du hast erfolgreich das Fremdwort $fremdsprache hinzugefügt.
-                Commands:
-                test [francais/english]
-                add [f/e] [deutsch] [fremdsprache]
-                remove [f/e] [fremdsprache]
-            """.trimIndent())
-        askForCommand()
-    }
-
     lateinit var controller: Controller
 
     fun setController(controller: VociController) {
@@ -28,16 +17,56 @@ class VociView() : View {
                 test [francais/english]
                 add [f/e] [deutsch] [fremdsprache]
                 remove [f/e] [fremdsprache]
+
+
+
+
+
+
+
+
             """.trimIndent())
         askForCommand()
     }
 
-    override fun showRemoveMenue() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showRemoveMenue(fremdsprache: String) {
+        println("""
+                Du hast erfolgreich das Fremdwort $fremdsprache gelöscht.
+                Commands:
+                test [francais/english]
+                add [f/e] [deutsch] [fremdsprache]
+                remove [f/e] [fremdsprache]
+
+
+
+
+
+
+
+
+
+            """.trimIndent())
+        askForCommand()
     }
 
-    override fun showAddMenue() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showAddMenue(fremdsprache: String) {
+        println("""
+                Du hast erfolgreich das Fremdwort $fremdsprache hinzugefügt.
+                Commands:
+                test [francais/english]
+                add [f/e] [deutsch] [fremdsprache]
+                remove [f/e] [fremdsprache]
+
+
+
+
+
+
+
+
+
+            """.trimIndent())
+        askForCommand()
     }
 
     private fun askForCommand() {
