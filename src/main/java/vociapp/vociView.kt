@@ -46,7 +46,6 @@ class VociView() : View {
 
 
             """.trimIndent())
-        askForCommand()
     }
 
     override fun showAddMenue(fremdsprache: String) {
@@ -66,7 +65,6 @@ class VociView() : View {
 
 
             """.trimIndent())
-        askForCommand()
     }
 
     private fun askForCommand() {
@@ -75,7 +73,7 @@ class VociView() : View {
         var command:String
         do {
             command = scanner.nextLine()
-        } while (!controller.execute(command))
+        } while (controller.execute(command))
 
     }
 
