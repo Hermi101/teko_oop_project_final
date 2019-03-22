@@ -12,8 +12,6 @@ interface VociRepository {
     fun removeEnglish(fremdsprache:String)
     fun listEnglish() : ArrayList<Voci>
     fun listFrench() : ArrayList<Voci>
-    fun testFrench()
-    fun testEnglish()
 
     companion object {
 
@@ -29,20 +27,12 @@ data class Voci(val deutsch:String, val fremdsprache:String){
 }
 
 class VociJsonRepository : VociRepository {
-    override fun testFrench() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun testEnglish() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
     val gson = GsonBuilder().setPrettyPrinting().create()
     val listTypeEnglish = object : TypeToken<ArrayList<Voci>>() { }.type
     val jsonFileEnglish = File("english.json")
     val listTypeFrench = object : TypeToken<ArrayList<Voci>>() { }.type
     val jsonFileFrench = File("french.json")
+
 
     override fun addFrench(deutsch: String, fremdsprache: String): Voci {
         val newVoci = Voci(deutsch, fremdsprache)
@@ -60,12 +50,12 @@ class VociJsonRepository : VociRepository {
         return newVoci
     }
 
-    override fun removeFrench(fremdsprache: String) {
+    override fun removeFrench(fremdsprache: String){
         val vociList= listFrench().filterNot {v -> v.fremdsprache == fremdsprache}
         save(vociList, "f")
     }
 
-    override fun removeEnglish(fremdsprache: String) {
+    override fun removeEnglish(fremdsprache: String){
         val vociList= listEnglish().filterNot {v -> v.fremdsprache == fremdsprache}
         save(vociList, "e")
     }

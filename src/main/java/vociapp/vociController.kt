@@ -5,24 +5,24 @@ class VociController(val vociModel: VociFunctions) : Controller {
     override fun execute(command: String): Boolean {
 
         if (command.startsWith("test")) {
-            if (command.endsWith("francais")){
-                vociModel.testFrench()
-            } else if (command.endsWith("english")){
-                vociModel.testEnglish()
+            if (parseCommand(command) == "f"){
+                vociModel.startTest("f", getThirdInput(command).toInt())
+            } else if (parseCommand(command) == "e"){
+                vociModel.startTest("f", getThirdInput(command).toInt())
                 println("Test")
             }
             return true
         } else if (command.startsWith("add ") && parseCommand(command) == "f") {
-            vociModel.addFrench(getGerman(command), getSecondLanguage(command))
+            vociModel.addFrench(getThirdInput(command), getFourthInput(command))
             return true
         } else if (command.startsWith("add ") && parseCommand(command) == "e") {
-            vociModel.addEnglish(getGerman(command), getSecondLanguage(command))
+            vociModel.addEnglish(getThirdInput(command), getFourthInput(command))
             return true
         } else if (command.startsWith("remove ") && parseCommand(command) == "f") {
-            vociModel.removeFrench(getGerman(command))
+            vociModel.removeFrench(getThirdInput(command))
             return true
         } else if (command.startsWith("remove ") && parseCommand(command) == "e") {
-            vociModel.removeEnglish(getGerman(command))
+            vociModel.removeEnglish(getThirdInput(command))
             return true
         }
 
@@ -35,10 +35,10 @@ class VociController(val vociModel: VociFunctions) : Controller {
 
         return command.split(" ")[1]
     }
-    private fun getGerman(command:String) : String {
+    private fun getThirdInput(command:String) : String {
         return command.split(" ")[2]
     }
-    private fun getSecondLanguage(command:String) : String {
+    private fun getFourthInput(command:String) : String {
         return command.split(" ")[3]
     }
 

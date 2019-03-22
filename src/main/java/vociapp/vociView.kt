@@ -3,6 +3,8 @@ package vociapp
 import java.util.*
 
 class VociView() : View {
+
+
     lateinit var controller: Controller
 
     fun setController(controller: VociController) {
@@ -14,7 +16,7 @@ class VociView() : View {
         println("""
                 Welcome to my Voci learning Console-App.
                 Commands:
-                test [francais/english]
+                test [f/e]
                 add [f/e] [deutsch] [fremdsprache]
                 remove [f/e] [fremdsprache]
 
@@ -31,7 +33,7 @@ class VociView() : View {
 
     override fun showRemoveMenue(fremdsprache: String) {
         println("""
-                Du hast erfolgreich das Fremdwort $fremdsprache gelöscht.
+                Das Wort $fremdsprache wurde gelöscht, sofern dieses existierte.
                 Commands:
                 test [francais/english]
                 add [f/e] [deutsch] [fremdsprache]
@@ -46,6 +48,7 @@ class VociView() : View {
 
 
             """.trimIndent())
+        askForCommand()
     }
 
     override fun showAddMenue(fremdsprache: String) {
@@ -65,16 +68,40 @@ class VociView() : View {
 
 
             """.trimIndent())
+        askForCommand()
+    }
+
+    override fun getTestInput(announcement: String, wort: String) : String{
+        println("""
+            $announcement
+
+            Bitte gib das Fremdwort für folgendes Wort ein:
+            $wort
+
+        """.trimIndent())
+        return askForInput()
+    }
+
+    override fun showtestResult(points: Int, amount: Int) {
+        println("""
+            Du hast $points von $amount Punkten erhalten.
+
+        """.trimIndent())
+        showInitialMenue()
     }
 
     private fun askForCommand() {
         val scanner = Scanner(System.`in`)
 
-        var command:String
-        do {
-            command = scanner.nextLine()
-        } while (controller.execute(command))
+        val command:String
 
+        command = scanner.nextLine()
+        (controller.execute(command))
+
+    }
+    private fun askForInput() : String{
+        val scanner = Scanner(System.`in`)
+        return scanner.nextLine()
     }
 
 }

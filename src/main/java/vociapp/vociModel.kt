@@ -4,12 +4,30 @@ class VociModel(val view: View) : VociFunctions{
 
     val vociRepository = VociRepository.getRepo()
 
-    override fun testFrench() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun startTest(language: String, amount: Int) {
+        var rnd: Int
+        var vociList = ArrayList<Voci>()
+        if(language == "f"){
+            vociList= vociRepository.listFrench()
+        } else if(language == "e") {
+            vociList= vociRepository.listEnglish()
+        }
 
-    override fun testEnglish() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var points = 0
+        if (vociList.size >= amount - 1){
+            for (i in 1..amount){
+                rnd = (0..(amount - 1)).random()
+                val currentArray = vociList.get(rnd)
+                if (view.getTestInput("Tesfrage $i von $amount", currentArray.deutsch) == currentArray.fremdsprache) {
+                    println("Korrekt!")
+                    points = points + 1
+                } else {
+                    println("Leider nein..")
+                }
+
+            }
+            view.showtestResult(points, amount)
+        }
     }
 
     override fun addFrench(german: String, fremdsprache: String) {
