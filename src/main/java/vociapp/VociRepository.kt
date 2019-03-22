@@ -22,9 +22,7 @@ interface VociRepository {
     }
 }
 
-data class Voci(val deutsch:String, val fremdsprache:String){
-
-}
+data class Voci(val deutsch:String, val fremdsprache:String)
 
 class VociJsonRepository : VociRepository {
     val gson = GsonBuilder().setPrettyPrinting().create()

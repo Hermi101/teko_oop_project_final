@@ -5,9 +5,9 @@ class VociController(val vociModel: VociFunctions) : Controller {
     override fun execute(command: String): Boolean {
 
         if (command.startsWith("test")) {
-            if (parseCommand(command) == "f"){
+            if (parseCommand(command) == "f") {
                 vociModel.startTest("f", getThirdInput(command).toInt())
-            } else if (parseCommand(command) == "e"){
+            } else if (parseCommand(command) == "e") {
                 vociModel.startTest("f", getThirdInput(command).toInt())
                 println("Test")
             }
@@ -31,14 +31,16 @@ class VociController(val vociModel: VociFunctions) : Controller {
         return true
     }
 
-    private fun parseCommand(command: String) : String {
+    private fun parseCommand(command: String): String {
 
         return command.split(" ")[1]
     }
-    private fun getThirdInput(command:String) : String {
+
+    private fun getThirdInput(command: String): String {
         return command.split(" ")[2]
     }
-    private fun getFourthInput(command:String) : String {
+
+    private fun getFourthInput(command: String): String {
         return command.split(" ")[3]
     }
 

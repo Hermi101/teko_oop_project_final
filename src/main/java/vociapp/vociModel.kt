@@ -1,21 +1,21 @@
 package vociapp
 
-class VociModel(val view: View) : VociFunctions{
+class VociModel(val view: View) : VociFunctions {
 
     val vociRepository = VociRepository.getRepo()
 
     override fun startTest(language: String, amount: Int) {
         var rnd: Int
         var vociList = ArrayList<Voci>()
-        if(language == "f"){
-            vociList= vociRepository.listFrench()
-        } else if(language == "e") {
-            vociList= vociRepository.listEnglish()
+        if (language == "f") {
+            vociList = vociRepository.listFrench()
+        } else if (language == "e") {
+            vociList = vociRepository.listEnglish()
         }
 
         var points = 0
-        if (vociList.size >= amount - 1){
-            for (i in 1..amount){
+        if (vociList.size >= amount - 1) {
+            for (i in 1..amount) {
                 rnd = (0..(amount - 1)).random()
                 val currentArray = vociList.get(rnd)
                 if (view.getTestInput("Tesfrage $i von $amount", currentArray.deutsch) == currentArray.fremdsprache) {
@@ -27,6 +27,8 @@ class VociModel(val view: View) : VociFunctions{
 
             }
             view.showtestResult(points, amount)
+        } else {
+            view.testNotPossible(vociList.size)
         }
     }
 
@@ -53,9 +55,9 @@ class VociModel(val view: View) : VociFunctions{
 
 }
 
-data class Person(val name:String) {
+data class Person(val name: String) {
 
-    fun greet() :String {
+    fun greet(): String {
         return "Hello, $name"
     }
 }

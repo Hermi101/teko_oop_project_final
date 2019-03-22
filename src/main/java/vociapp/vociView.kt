@@ -2,7 +2,7 @@ package vociapp
 
 import java.util.*
 
-class VociView() : View {
+class VociView : View {
 
 
     lateinit var controller: Controller
@@ -13,93 +13,88 @@ class VociView() : View {
 
 
     override fun showInitialMenue() {
-        println("""
+        println(
+            """
                 Welcome to my Voci learning Console-App.
                 Commands:
                 test [f/e]
                 add [f/e] [deutsch] [fremdsprache]
                 remove [f/e] [fremdsprache]
-
-
-
-
-
-
-
-
-            """.trimIndent())
+                |---------------------------------------------------------------------------------------------------------|
+            """.trimIndent()
+        )
         askForCommand()
     }
 
     override fun showRemoveMenue(fremdsprache: String) {
-        println("""
+        println(
+            """
                 Das Wort $fremdsprache wurde gelöscht, sofern dieses existierte.
                 Commands:
                 test [francais/english]
                 add [f/e] [deutsch] [fremdsprache]
                 remove [f/e] [fremdsprache]
-
-
-
-
-
-
-
-
-
-            """.trimIndent())
+                |---------------------------------------------------------------------------------------------------------|
+            """.trimIndent()
+        )
         askForCommand()
     }
 
     override fun showAddMenue(fremdsprache: String) {
-        println("""
+        println(
+            """
                 Du hast erfolgreich das Fremdwort $fremdsprache hinzugefügt.
                 Commands:
                 test [francais/english]
                 add [f/e] [deutsch] [fremdsprache]
                 remove [f/e] [fremdsprache]
-
-
-
-
-
-
-
-
-
-            """.trimIndent())
+                |---------------------------------------------------------------------------------------------------------|
+            """.trimIndent()
+        )
         askForCommand()
     }
 
-    override fun getTestInput(announcement: String, wort: String) : String{
-        println("""
+    override fun getTestInput(announcement: String, wort: String): String {
+        println(
+            """
             $announcement
 
             Bitte gib das Fremdwort für folgendes Wort ein:
             $wort
-
-        """.trimIndent())
+            |---------------------------------------------------------------------------------------------------------|
+        """.trimIndent()
+        )
         return askForInput()
     }
 
     override fun showtestResult(points: Int, amount: Int) {
-        println("""
+        println(
+            """
             Du hast $points von $amount Punkten erhalten.
-
-        """.trimIndent())
+            |---------------------------------------------------------------------------------------------------------|
+        """.trimIndent()
+        )
+        showInitialMenue()
+    }
+    override fun testNotPossible(amount: Int){
+        println("""
+            Leider exisitieren nur $amount Wörter.
+            |---------------------------------------------------------------------------------------------------------|
+        """.trimMargin())
         showInitialMenue()
     }
 
     private fun askForCommand() {
         val scanner = Scanner(System.`in`)
 
-        val command:String
+        val command: String
 
         command = scanner.nextLine()
         (controller.execute(command))
 
     }
-    private fun askForInput() : String{
+
+    private fun askForInput(): String {
         val scanner = Scanner(System.`in`)
         return scanner.nextLine()
     }
