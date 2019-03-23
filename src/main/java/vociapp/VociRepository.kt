@@ -6,10 +6,10 @@ import com.google.gson.reflect.TypeToken
 import kotlin.collections.ArrayList
 
 interface VociRepository {
-    fun addFrench(deutsch:String, fremdsprache:String) : Voci
-    fun addEnglish(deutsch:String, fremdsprache:String) : Voci
-    fun removeFrench(fremdsprache:String)
-    fun removeEnglish(fremdsprache:String)
+    fun addFrench(deutsch:String, fremdsprache:String): Boolean
+    fun addEnglish(deutsch:String, fremdsprache:String) : Boolean
+    fun removeFrench(fremdsprache:String) : Boolean
+    fun removeEnglish(fremdsprache:String) : Boolean
     fun listEnglish() : ArrayList<Voci>
     fun listFrench() : ArrayList<Voci>
 
@@ -32,30 +32,51 @@ class VociJsonRepository : VociRepository {
     val jsonFileFrench = File("french.json")
 
 
-    override fun addFrench(deutsch: String, fremdsprache: String): Voci {
+    override fun addFrench(deutsch: String, fremdsprache: String) : Boolean {
         val newVoci = Voci(deutsch, fremdsprache)
         val vociList = listFrench()
-        vociList.add(newVoci)
-        save(vociList, "f")
-        return newVoci
+        if (!vociList.contains(newVoci)) {
+            vociList.add(newVoci)
+            save(vociList, "f")
+            return true
+        } else {
+            return false
+        }
     }
 
-    override fun addEnglish(deutsch: String, fremdsprache: String): Voci {
+    override fun addEnglish(deutsch: String, fremdsprache: String): Boolean {
         val newVoci = Voci(deutsch, fremdsprache)
         val vociList = listEnglish()
-        vociList.add(newVoci)
-        save(vociList, "e")
-        return newVoci
+        if (!vociList.contains(newVoci)){
+            vociList.add(newVoci)
+            save(vociList, "e")
+            return true
+        } else {
+            return false
+        }
     }
 
-    override fun removeFrench(fremdsprache: String){
-        val vociList= listFrench().filterNot {v -> v.fremdsprache == fremdsprache}
-        save(vociList, "f")
+    override fun removeFrench(fremdsprache: String) : Boolean{
+        val vociList = listFrench()
+        if (vociList.filter { v -> v.fremdsprache == fremdsprache}.isNotEmpty()){
+            val vociListNew = listFrench().filterNot { v -> v.fremdsprache == fremdsprache }
+            save(vociListNew, "f")
+            return true
+        } else {
+            return false
+        }
+
     }
 
-    override fun removeEnglish(fremdsprache: String){
-        val vociList= listEnglish().filterNot {v -> v.fremdsprache == fremdsprache}
-        save(vociList, "e")
+    override fun removeEnglish(fremdsprache: String) : Boolean{
+        val vociList = listEnglish()
+        if (vociList.filter { v -> v.fremdsprache == fremdsprache}.isNotEmpty()){
+            val vociListNew = vociList.filterNot { v -> v.fremdsprache == fremdsprache }
+            save(vociListNew, "e")
+            return true
+        } else {
+            return false
+        }
     }
 
     override fun listEnglish(): ArrayList<Voci> {
@@ -92,9 +113,6 @@ class VociJsonRepository : VociRepository {
             val vociJsonText = gson.toJson(vociList)
             jsonFileEnglish.writeText(vociJsonText)
         }
-
-
-
     }
 
     private fun readFile(jsonFile: File): String {

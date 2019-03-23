@@ -4,7 +4,6 @@ import java.util.*
 
 class VociView : View {
 
-
     lateinit var controller: Controller
 
     fun setController(controller: VociController) {
@@ -12,14 +11,34 @@ class VociView : View {
     }
 
 
-    override fun showInitialMenue() {
+    override fun showInitialMenu() {
         println(
             """
-                Welcome to my Voci learning Console-App.
+                 - - - - - - - - - - - - - - - - - - - -
+                | Willkommen zu der Voci-Lern App.      |
+                |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|
+                test e/f ohne anzahl Wörter startet einen Test mit 10 Wörtern (sofern so viele existieren).
                 Commands:
                 test [f/e]
                 add [f/e] [deutsch] [fremdsprache]
                 remove [f/e] [fremdsprache]
+                exit
+                |---------------------------------------------------------------------------------------------------------|
+            """.trimIndent()
+        )
+        askForCommand()
+    }
+
+    override fun showActiveMenu() {
+        println(
+            """
+
+                test e/f ohne anzahl Wörter startet einen Test mit 10 Wörtern (sofern so viele existieren).
+                Commands:
+                test [f/e] [amount]
+                add [f/e] [deutsch] [fremdsprache]
+                remove [f/e] [fremdsprache]
+                exit
                 |---------------------------------------------------------------------------------------------------------|
             """.trimIndent()
         )
@@ -29,29 +48,20 @@ class VociView : View {
     override fun showRemoveMenue(fremdsprache: String) {
         println(
             """
-                Das Wort $fremdsprache wurde gelöscht, sofern dieses existierte.
-                Commands:
-                test [francais/english]
-                add [f/e] [deutsch] [fremdsprache]
-                remove [f/e] [fremdsprache]
-                |---------------------------------------------------------------------------------------------------------|
+                Das Wort $fremdsprache wurde gelöscht.
+
             """.trimIndent()
         )
-        askForCommand()
+        showActiveMenu()
     }
 
     override fun showAddMenue(fremdsprache: String) {
         println(
             """
                 Du hast erfolgreich das Fremdwort $fremdsprache hinzugefügt.
-                Commands:
-                test [francais/english]
-                add [f/e] [deutsch] [fremdsprache]
-                remove [f/e] [fremdsprache]
-                |---------------------------------------------------------------------------------------------------------|
             """.trimIndent()
         )
-        askForCommand()
+        showActiveMenu()
     }
 
     override fun getTestInput(announcement: String, wort: String): String {
@@ -71,17 +81,60 @@ class VociView : View {
         println(
             """
             Du hast $points von $amount Punkten erhalten.
-            |---------------------------------------------------------------------------------------------------------|
+
         """.trimIndent()
         )
-        showInitialMenue()
+        showActiveMenu()
     }
     override fun testNotPossible(amount: Int){
         println("""
             Leider exisitieren nur $amount Wörter.
-            |---------------------------------------------------------------------------------------------------------|
+
         """.trimMargin())
-        showInitialMenue()
+        showActiveMenu()
+    }
+    override fun vociAlreadyExists(fremdsprache: String) {
+        println("""
+            Das Wort $fremdsprache ist bereits erfasst.
+
+        """.trimIndent())
+        showActiveMenu()
+    }
+    override fun vociDoesntExist(fremdsprache: String) {
+        println("""
+            Das Wort $fremdsprache existiert nicht und kann demnach nicht entfernt werden.
+
+            """.trimIndent())
+        showActiveMenu()
+    }
+    override fun wrongAddCommand(command: String) {
+        println("""
+            Der Befehl $command ist im falschen Format.
+            Diese müsste z.B. folgendermassen aussehen:
+
+            add e Sieg victory
+
+        """.trimIndent())
+        showActiveMenu()
+    }
+    override fun wrongRemoveCommand(command: String) {
+        println("""
+            Der Befehl $command ist im falschen Format.
+            Diese müsste z.B. folgendermassen aussehen:
+
+            remove e victory
+
+        """.trimIndent())
+        showActiveMenu()
+    }
+
+    override fun wrongCommand(command: String) {
+        println("""
+            Der Befehl $command ist im falschen Format.
+            Das Format kann hier entnommen werden:
+
+        """.trimIndent())
+        showActiveMenu()
     }
 
     private fun askForCommand() {

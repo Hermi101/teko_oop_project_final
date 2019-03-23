@@ -6,4 +6,5 @@ interface VociFunctions {
     fun removeFrench(french: String)
     fun removeEnglish(english: String)
     fun startTest(language: String, amount: Int)
+    fun wrongCommand(command: String, type: String)
 }

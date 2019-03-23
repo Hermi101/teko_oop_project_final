@@ -5,28 +5,58 @@ class VociController(val vociModel: VociFunctions) : Controller {
     override fun execute(command: String): Boolean {
 
         if (command.startsWith("test")) {
-            if (parseCommand(command) == "f") {
-                vociModel.startTest("f", getThirdInput(command).toInt())
-            } else if (parseCommand(command) == "e") {
-                vociModel.startTest("f", getThirdInput(command).toInt())
-                println("Test")
+            try {
+                if (parseCommand(command) == "f") {
+                    try {
+                        vociModel.startTest("f", getThirdInput(command).toInt())
+                    } catch (e: IndexOutOfBoundsException) {
+                        vociModel.startTest("f", 10)
+                    }
+
+                } else if (parseCommand(command) == "e") {
+                    try {
+                        vociModel.startTest("e", getThirdInput(command).toInt())
+                    } catch (e: IndexOutOfBoundsException) {
+                        vociModel.startTest("e", 10)
+                    }
+                }
+            } catch (e: java.lang.IndexOutOfBoundsException){
+                vociModel.wrongCommand(command, "unkown")
             }
+
             return true
         } else if (command.startsWith("add ") && parseCommand(command) == "f") {
-            vociModel.addFrench(getThirdInput(command), getFourthInput(command))
+            try {
+                vociModel.addFrench(getThirdInput(command), getFourthInput(command))
+            } catch (e: java.lang.IndexOutOfBoundsException){
+                vociModel.wrongCommand(command, "add")
+            }
             return true
         } else if (command.startsWith("add ") && parseCommand(command) == "e") {
-            vociModel.addEnglish(getThirdInput(command), getFourthInput(command))
+            try {
+                vociModel.addEnglish(getThirdInput(command), getFourthInput(command))
+            } catch (e: java.lang.IndexOutOfBoundsException){
+                vociModel.wrongCommand(command, "add")
+            }
             return true
         } else if (command.startsWith("remove ") && parseCommand(command) == "f") {
-            vociModel.removeFrench(getThirdInput(command))
+            try {
+                vociModel.removeFrench(getThirdInput(command))
+            } catch (e: java.lang.IndexOutOfBoundsException){
+                vociModel.wrongCommand(command, "remove")
+            }
             return true
         } else if (command.startsWith("remove ") && parseCommand(command) == "e") {
-            vociModel.removeEnglish(getThirdInput(command))
-            return true
+            try {
+                vociModel.removeEnglish(getThirdInput(command))
+            } catch (e: java.lang.IndexOutOfBoundsException){
+                vociModel.wrongCommand(command, "remove")
+            }
+        } else if (command.startsWith("exit")) {
+            System.exit(-1)
         }
 
-        println("Befehl $command nicht erkannt!")
+        vociModel.wrongCommand(command, "unknown")
 
         return true
     }

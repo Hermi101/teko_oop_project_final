@@ -1,8 +1,7 @@
 package vociapp
 
 class VociModel(val view: View) : VociFunctions {
-
-    val vociRepository = VociRepository.getRepo()
+        val vociRepository = VociRepository.getRepo()
 
     override fun startTest(language: String, amount: Int) {
         var rnd: Int
@@ -12,9 +11,8 @@ class VociModel(val view: View) : VociFunctions {
         } else if (language == "e") {
             vociList = vociRepository.listEnglish()
         }
-
         var points = 0
-        if (vociList.size >= amount - 1) {
+        if (vociList.size >= amount) {
             for (i in 1..amount) {
                 rnd = (0..(amount - 1)).random()
                 val currentArray = vociList.get(rnd)
@@ -33,23 +31,45 @@ class VociModel(val view: View) : VociFunctions {
     }
 
     override fun addFrench(german: String, fremdsprache: String) {
-        vociRepository.addFrench(german, fremdsprache)
-        view.showAddMenue(fremdsprache)
+        if(vociRepository.addFrench(german, fremdsprache) == true){
+            view.showAddMenue(fremdsprache)
+        } else {
+            view.vociAlreadyExists(fremdsprache)
+        }
     }
 
     override fun addEnglish(german: String, fremdsprache: String) {
-        vociRepository.addEnglish(german, fremdsprache)
-        view.showAddMenue(fremdsprache)
+        if(vociRepository.addEnglish(german, fremdsprache) == true){
+            view.showAddMenue(fremdsprache)
+        } else {
+            view.vociAlreadyExists(fremdsprache)
+        }
     }
 
     override fun removeFrench(french: String) {
-        vociRepository.removeFrench(french)
-        view.showRemoveMenue(french)
+        if (vociRepository.removeFrench(french) == true) {
+            view.showRemoveMenue(french)
+        } else{
+            view.vociDoesntExist(french)
+        }
     }
 
     override fun removeEnglish(english: String) {
-        vociRepository.removeFrench(english)
-        view.showRemoveMenue(english)
+        if (vociRepository.removeEnglish(english) == true) {
+            view.showRemoveMenue(english)
+        } else{
+            view.vociDoesntExist(english)
+        }
+    }
+
+    override fun wrongCommand(command: String, type: String) {
+        if (type == "add"){
+            view.wrongAddCommand(command)
+        } else if (type == "remove") {
+            view.wrongRemoveCommand(command)
+        } else if (type == "unknown"){
+            view.wrongCommand(command)
+        }
     }
 
 

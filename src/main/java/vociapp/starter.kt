@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
     vociView.setController(vociController)
 
 
-    vociView.showInitialMenue()
+    vociView.showInitialMenu()
 
 
 }
