@@ -1,7 +1,5 @@
 package vociapp
 
-import java.util.*
-
 interface View {
     fun showInitialMenu()
     fun showActiveMenu()

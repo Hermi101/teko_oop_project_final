@@ -21,6 +21,7 @@ class VociModel(val view: View) : VociFunctions {
                     points = points + 1
                 } else {
                     println("Leider nein..")
+                    println("Die Richtige Antwort wäre: ${currentArray.fremdsprache}")
                 }
 
             }
@@ -73,11 +74,4 @@ class VociModel(val view: View) : VociFunctions {
     }
 
 
-}
-
-data class Person(val name: String) {
-
-    fun greet(): String {
-        return "Hello, $name"
-    }
 }
